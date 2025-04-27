@@ -15,24 +15,25 @@ If the user was registered, the program will load the tasks from its file and wi
 The user can click on the tasks and information like the type of task, the deadline date and the notes attached to the task will be shown.
 
 The user will had buttons with the next functions:
-	When nothing is selected:
-		- create new tasks.
-			Will open a new window with a textbox for the name of the task, a combobox to select the group, a datepicker for the deadline,
-				a multiline textbox for notes, a cancel button and a save button.
+
+	- When nothing is selected:
+		- Create new tasks.
+			Will open a new window with a textbox for the name of the task, a combobox to select the group,
+   				a datepicker for the deadline, a multiline textbox for notes, a cancel button and a save button.
 			If no group is selected, the task will be added to the default group.
-		- create new groups
+		- Create new groups
 			Will open a new window with a textbox for the name of the group, a cancel button and a save button.
 			If the group already exists, the program will prompt the user to enter a new name.
-	When a task is selected:
-		- edit task
+	- When a task is selected:
+		- Edit task
 			Will open a new window with the data of the task already filled, a cancel button and a save button.
 			The user can modify this fields and save them.
-		- mark task as done.
+		- Mark task as done.
 			Will modify a boolean value in the task object to true.
-		-move task to another group
+		- Move task to another group
 			Will open a new window with a combobox to select the group, a cancel button and a save button.
-		- delete task
-	When a group is selected:
+		- Delete task
+	- When a group is selected:
 		- delete group
 			It will move all the tasks from the selected group to the default group without name.
 			The default group will be created when the program first launches.
