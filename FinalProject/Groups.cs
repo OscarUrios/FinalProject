@@ -24,6 +24,18 @@ class Group
 
     public void NewTask(Task task)
     {
-        this.tasks.Add(task);
+        tasks.Add(task);
+    }
+
+    public void SaveToFile()
+    {
+        string filePath = $"{SharedInfoAndFunctions.Users.Username}.txt";
+        using (StreamWriter writer = new StreamWriter(filePath, true))
+        {
+            foreach (Task task in tasks)
+            {
+                writer.WriteLine($"{name}·{task.ToFile()}");
+            }
+        }
     }
 }

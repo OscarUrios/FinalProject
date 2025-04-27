@@ -1,17 +1,13 @@
 ﻿
-class Task
+partial class Task
 {
     private string name;
     private string notes;
-    private DateTime dueDate;
-    private bool stage;
 
-    public Task(string name, string notes, DateTime dueDate, bool stage)
+    public Task(string name, string notes)
     {
         this.name = name;
         this.notes = notes;
-        this.dueDate = dueDate;
-        this.stage = stage;
     }
 
     public string Name
@@ -26,20 +22,13 @@ class Task
         set { notes = value; }
     }
 
-    public DateTime DueDate
-    {
-        get { return dueDate; }
-        set { dueDate = value; }
-    }
-
-    public bool Stage
-    {
-        get { return stage; }
-        set { stage = value; }
-    }
-
     public override string ToString()
     {
-        return "Name: " + name + "\nDescription: " + notes + "\nDue Date: " + dueDate + "\nStage: " + stage;
+        return "Name: " + name + "\nDescription: " + notes;
+    }
+
+    public virtual string ToFile()
+    {
+        return $"{name}^{notes}";
     }
 }
