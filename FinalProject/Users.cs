@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Security.Cryptography.X509Certificates;
+using System.Xml.Linq;
 using FinalProject;
 
 class User
@@ -28,6 +29,17 @@ class User
         this.groups.Add(group);
     }
 
+    public void AddTaskFromFile(string groupName, Task task)
+    {
+        foreach (Group group in groups)
+        {
+            if (group.Name == groupName)
+            {
+                group.NewTask(task);
+            }
+        }
+    }
+
     public void AddTaskToGroup(string groupname, Task task)
     {
         bool groupFound = false;
@@ -41,13 +53,36 @@ class User
         }
         if (groupFound)
         {
-            Console.WriteLine($"Task added to group {groupname}.");
+            MessageBox.Show($"Task added to group {groupname}.");
         }
         else
         {
-            Console.WriteLine("Group not found.");
+            MessageBox.Show($"Group not found.");
         }
     }
+
+    public void DeleteTask(string groupName, Task task)
+    {
+        foreach (Group group in groups)
+        {
+            if (group.Name == groupName)
+            {
+                foreach(Task task1 in group.Tasks)
+                {
+                    if (task1.Name == task.Name)
+                    {
+                        group.Tasks.Remove(task1);
+                        MessageBox.Show($"Task {task.Name} deleted from group {groupName}.");
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show($"Group not found.");
+            }
+        }
+    }
+
     public List<Task> ShowTasks(string groupName)
     {
         List<Task> tasks = new List<Task>();
@@ -59,5 +94,17 @@ class User
             }
         }
         return tasks;
+    }
+
+    public void SaveToFile()
+    {
+        string filePath = $"{SharedInfoAndFunctions.Users.Username}-group.txt";
+        using (StreamWriter writer = new StreamWriter(filePath, false))
+        {
+            foreach (Group group in groups)
+            {
+                writer.WriteLine($"{group.Name}");
+            }
+        }
     }
 }

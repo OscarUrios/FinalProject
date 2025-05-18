@@ -46,23 +46,47 @@ namespace FinalProject
                         string taskNotes = parts[2];
                         if (parts.Length == 5)
                         {
-                            DateTime taskDate = DateTime.ParseExact($"{parts[3]}", "dd/MM/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                            DateTime taskDate = DateTime.ParseExact($"{parts[3]}", "d/M/yyyy HH:mm", System.Globalization.CultureInfo.InvariantCulture);
                             bool taskCompleted = bool.Parse(parts[4]);
                             NormalTask task = new NormalTask(taskName, taskNotes, taskDate, taskCompleted);
-                            SharedInfoAndFunctions.Users.AddTaskToGroup(groupName, task);
+                            SharedInfoAndFunctions.Users.AddTaskFromFile(groupName, task);
                         }
                         else
                         {
-                            DateTime HourRepeat = DateTime.ParseExact($"{parts[3]}", "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                            DateTime HourRepeat = DateTime.ParseExact($"{parts[3]}", "H:m", System.Globalization.CultureInfo.InvariantCulture);
                             RepeatTask task = new RepeatTask(taskName, taskNotes, HourRepeat);
-                            SharedInfoAndFunctions.Users.AddTaskToGroup(groupName, task);
+                            SharedInfoAndFunctions.Users.AddTaskFromFile(groupName, task);
                         }
                     }
                 } while (line != null);
             }
         }
 
+        void CloseApp()
+        {
+            foreach (Group group in SharedInfoAndFunctions.Users.Groups)
+            {
+                using (StreamWriter file = new StreamWriter($"{SharedInfoAndFunctions.Users.Username}-group.txt"))
+                {
+                    file.WriteLine(group.Name);
+                }
+                group.SaveToFile();
+            }
+            SharedInfoAndFunctions.Users.SaveToFile();
+        }
 
+        Task SearchTask()
+        {
+            Task founTask = null;
+            foreach (Task task in SharedInfoAndFunctions.Users.ShowTasks(listBoxGroups.SelectedItem.ToString()))
+            {
+                if (task.Name == listBoxTasks.SelectedItem.ToString())
+                {
+                    founTask = task;
+                }
+            }
+            return founTask;
+        }
 
 
         public Home()
@@ -85,7 +109,13 @@ namespace FinalProject
 
         private void BTNDelTask_Click(object sender, EventArgs e)
         {
+            foreach (Task task in SharedInfoAndFunctions.Users.ShowTasks(listBoxGroups.SelectedItem.ToString()))
+            {
+                if (task.Name == listBoxTasks.SelectedItem.ToString())
+                {
 
+                }
+            }
         }
 
         private void BTNModTask_Click(object sender, EventArgs e)
@@ -111,33 +141,39 @@ namespace FinalProject
 
         private void CloseApp_Click(object sender, EventArgs e)
         {
+            CloseApp();
             Application.Exit();
         }
 
         private void Home_FormClosing(object sender, FormClosingEventArgs e)
         {
+            CloseApp();
             Application.Exit();
         }
 
         private void listBoxGroups_SelectedIndexChanged(object sender, EventArgs e)
         {
-            List<Task> tasks = SharedInfoAndFunctions.Users.ShowTasks(listBoxGroups.SelectedItem.ToString());
-
-            if (tasks.Count != 0)
+            if (listBoxGroups.SelectedItem != null)
             {
-                listBoxTasks.Items.Clear();
-                foreach (Task task in tasks)
+                List<Task> tasks = SharedInfoAndFunctions.Users.ShowTasks(listBoxGroups.SelectedItem.ToString());
+
+                if (tasks.Count > 0)
                 {
-                    listBoxTasks.Items.Add(task.Name);
+                    listBoxTasks.Items.Clear();
+                    foreach (Task task in tasks)
+                    {
+                        listBoxTasks.Items.Add(task.Name);
+                    }
                 }
             }
         }
 
         private void listBoxTasks_SelectedIndexChanged(object sender, EventArgs e)
-        {  
-            foreach (Task task in SharedInfoAndFunctions.Users.ShowTasks(listBoxGroups.SelectedItem.ToString()))
+        {
+            if (listBoxTasks.SelectedItem != null)
             {
-                if (task.Name == listBoxTasks.SelectedItem.ToString())
+                Task task = SearchTask();
+                if (task != null)
                 {
                     textBoxNotes.Text = task.Notes;
                     textBoxName.Text = task.Name;
@@ -150,6 +186,30 @@ namespace FinalProject
                         textBoxDeadline.Text = Convert.ToString(((RepeatTask)task).HourRepeat);
                     }
                 }
+
+            }
+        }
+
+        private void BTNNewGroup_Click(object sender, EventArgs e)
+        {
+            Hide();
+            NewGroup newGroup = new NewGroup();
+            newGroup.ShowDialog();
+        }
+
+        private void BTNDelGroup_Click(object sender, EventArgs e)
+        {
+            if (listBoxGroups.SelectedItem != null)
+            {
+                string groupName = listBoxGroups.SelectedItem.ToString();
+                for (int i=0; i < SharedInfoAndFunctions.Users.Groups.Count; i++)
+                {
+                    if (SharedInfoAndFunctions.Users.Groups[i].Name == groupName)
+                    {
+                        SharedInfoAndFunctions.Users.Groups.Remove(SharedInfoAndFunctions.Users.Groups[i]);
+                    }
+                }
+                listBoxGroups.Items.Remove(groupName);
             }
         }
     }

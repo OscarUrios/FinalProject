@@ -1,6 +1,6 @@
 ﻿namespace FinalProject
 {
-    partial class ModForm
+    partial class NewGroup
     {
         /// <summary>
         /// Required designer variable.
@@ -30,47 +30,56 @@
         {
             BTNSave = new Button();
             BTNCancel = new Button();
-            label1 = new Label();
+            textBox1 = new TextBox();
+            label2 = new Label();
             SuspendLayout();
             // 
             // BTNSave
             // 
-            BTNSave.Location = new Point(717, 416);
+            BTNSave.Location = new Point(162, 78);
             BTNSave.Name = "BTNSave";
             BTNSave.Size = new Size(75, 23);
             BTNSave.TabIndex = 2;
             BTNSave.Text = "Save";
             BTNSave.UseVisualStyleBackColor = true;
+            BTNSave.Click += BTNSave_Click;
             // 
             // BTNCancel
             // 
-            BTNCancel.Location = new Point(636, 416);
+            BTNCancel.Location = new Point(81, 78);
             BTNCancel.Name = "BTNCancel";
             BTNCancel.Size = new Size(75, 23);
             BTNCancel.TabIndex = 3;
             BTNCancel.Text = "Cancel";
             BTNCancel.UseVisualStyleBackColor = true;
+            BTNCancel.Click += BTNCancel_Click;
             // 
-            // label1
+            // textBox1
             // 
-            label1.AutoSize = true;
-            label1.Location = new Point(354, 196);
-            label1.Name = "label1";
-            label1.Size = new Size(68, 15);
-            label1.TabIndex = 4;
-            label1.Text = "Still in work";
+            textBox1.Location = new Point(57, 40);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(208, 23);
+            textBox1.TabIndex = 5;
             // 
-            // ModForm
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(57, 22);
+            label2.Name = "label2";
+            label2.Size = new Size(39, 15);
+            label2.TabIndex = 6;
+            label2.Text = "Name";
+            // 
+            // NewGroup
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(804, 451);
-            Controls.Add(label1);
+            ClientSize = new Size(324, 121);
+            Controls.Add(label2);
+            Controls.Add(textBox1);
             Controls.Add(BTNCancel);
             Controls.Add(BTNSave);
-            MaximumSize = new Size(820, 490);
-            MinimumSize = new Size(820, 490);
-            Name = "ModForm";
+            Name = "NewGroup";
             Text = "DoYourTasks";
             ResumeLayout(false);
             PerformLayout();
@@ -80,6 +89,7 @@
 
         private Button BTNSave;
         private Button BTNCancel;
-        private Label label1;
+        private TextBox textBox1;
+        private Label label2;
     }
 }

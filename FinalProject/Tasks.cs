@@ -1,5 +1,5 @@
 ﻿
-partial class Task
+abstract class Task
 {
     private string name;
     private string notes;

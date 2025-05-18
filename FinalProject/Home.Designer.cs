@@ -99,6 +99,7 @@
             BTNNewGroup.TabIndex = 5;
             BTNNewGroup.Text = "Add Group";
             BTNNewGroup.UseVisualStyleBackColor = true;
+            BTNNewGroup.Click += BTNNewGroup_Click;
             // 
             // BTNDelGroup
             // 
@@ -108,6 +109,7 @@
             BTNDelGroup.TabIndex = 6;
             BTNDelGroup.Text = "Delete Group";
             BTNDelGroup.UseVisualStyleBackColor = true;
+            BTNDelGroup.Click += BTNDelGroup_Click;
             // 
             // groupBoxTaskInfo
             // 

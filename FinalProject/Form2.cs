@@ -10,11 +10,34 @@ using System.Windows.Forms;
 
 namespace FinalProject
 {
-    public partial class ModForm : Form
+    public partial class NewGroup : Form
     {
-        public ModForm()
+        
+        public NewGroup()
         {
             InitializeComponent();
+        }
+
+        private void BTNSave_Click(object sender, EventArgs e)
+        {
+            string name = textBox1.Text;
+            if (name != "")
+            {
+                SharedInfoAndFunctions.Users.NewGroup(new Group(name));
+                Hide();
+                Home home = new Home();
+                home.ShowDialog();
+            }
+            else
+            {
+                MessageBox.Show("The name box can't be empty.");
+            }
+        }
+        private void BTNCancel_Click(object sender, EventArgs e)
+        {
+            Hide();
+            Home home = new Home();
+            home.ShowDialog();
         }
     }
 }

@@ -30,7 +30,7 @@ class Group
     public void SaveToFile()
     {
         string filePath = $"{SharedInfoAndFunctions.Users.Username}.txt";
-        using (StreamWriter writer = new StreamWriter(filePath, true))
+        using (StreamWriter writer = new StreamWriter(filePath, false))
         {
             foreach (Task task in tasks)
             {

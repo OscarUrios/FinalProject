@@ -11,23 +11,35 @@ namespace FinalProject
         }
         private void button1_Click(object sender, EventArgs e)
         {
-            string file;
+            string file1, file2;
             string line;
             string username = textBox1.Text;
             SharedInfoAndFunctions.Users = new User(username);
-            file = $"{username}.txt";
-            if (File.Exists(file))
+            file1 = $"{username}-group.txt";
+            file2 = $"{username}.txt";
+            if (File.Exists(file2))
             {
-                using (StreamReader file1 = new StreamReader(file))
+                using (StreamReader filex = new StreamReader(file1))
                 {
                     do
                     {
-                        line = file1.ReadLine();
+                        line = filex.ReadLine();
+                        if (line != null)
+                        {
+                            SharedInfoAndFunctions.Users.NewGroup(new Group(line));
+                        }
+                    } while (line != null);
+                }
+                using (StreamReader filex = new StreamReader(file2))
+                {
+                    do
+                    {
+                        line = filex.ReadLine();
                         if (line != null)
                         {
                             string[] parts = line.Split(',');
                         }
-                    } while (line != null) ;
+                    } while (line != null);
                 }
                 Hide();
                 Home home = new Home();
@@ -39,13 +51,15 @@ namespace FinalProject
                 if (result == DialogResult.Yes)
                 {
                     User user = new User(username);
-                    File.CreateText(file);
+                    StreamWriter GSF = File.CreateText(file1);
+                    GSF.Close();
+                    StreamWriter SF = File.CreateText(file2);
+                    SF.Close();
 
                     MessageBox.Show("Creating a new user.");
                     Hide();
                     Home home = new Home();
                     home.ShowDialog();
-                    
                 }
             }
         }

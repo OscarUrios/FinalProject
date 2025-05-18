@@ -37,14 +37,14 @@ namespace FinalProject
 
         private void BTNSave_Click(object sender, EventArgs e)
         {
-            if (checkBox1 == null)
+            if (!checkBox1.Checked)
             {
                 NormalTask task = new NormalTask(textBoxName.Text, textBoxNotes.Text, dateTimePickerNewTask.Value, false);
                 SharedInfoAndFunctions.Users.AddTaskToGroup(comboBoxGroup.SelectedText, task);
             }
             else
             {
-                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}", "HH:mm", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}", "H:m", System.Globalization.CultureInfo.InvariantCulture);
                 RepeatTask task = new RepeatTask(textBoxName.Text, textBoxNotes.Text, hour);
                 SharedInfoAndFunctions.Users.AddTaskToGroup(comboBoxGroup.SelectedText, task);
             }
