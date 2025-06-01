@@ -35,6 +35,8 @@
             BTNNewGroup = new Button();
             BTNDelGroup = new Button();
             groupBoxTaskInfo = new GroupBox();
+            checkBox1 = new CheckBox();
+            label3 = new Label();
             labelDeadline = new Label();
             textBoxDeadline = new TextBox();
             textBoxName = new TextBox();
@@ -53,7 +55,7 @@
             // 
             // BTNAddTask
             // 
-            BTNAddTask.Location = new Point(400, 322);
+            BTNAddTask.Location = new Point(429, 333);
             BTNAddTask.Name = "BTNAddTask";
             BTNAddTask.Size = new Size(103, 23);
             BTNAddTask.TabIndex = 0;
@@ -83,7 +85,7 @@
             // 
             // BTNDelTask
             // 
-            BTNDelTask.Location = new Point(400, 351);
+            BTNDelTask.Location = new Point(429, 362);
             BTNDelTask.Name = "BTNDelTask";
             BTNDelTask.Size = new Size(103, 23);
             BTNDelTask.TabIndex = 1;
@@ -93,7 +95,7 @@
             // 
             // BTNNewGroup
             // 
-            BTNNewGroup.Location = new Point(618, 322);
+            BTNNewGroup.Location = new Point(647, 333);
             BTNNewGroup.Name = "BTNNewGroup";
             BTNNewGroup.Size = new Size(103, 23);
             BTNNewGroup.TabIndex = 5;
@@ -103,7 +105,7 @@
             // 
             // BTNDelGroup
             // 
-            BTNDelGroup.Location = new Point(618, 351);
+            BTNDelGroup.Location = new Point(647, 362);
             BTNDelGroup.Name = "BTNDelGroup";
             BTNDelGroup.Size = new Size(103, 23);
             BTNDelGroup.TabIndex = 6;
@@ -113,6 +115,8 @@
             // 
             // groupBoxTaskInfo
             // 
+            groupBoxTaskInfo.Controls.Add(checkBox1);
+            groupBoxTaskInfo.Controls.Add(label3);
             groupBoxTaskInfo.Controls.Add(labelDeadline);
             groupBoxTaskInfo.Controls.Add(textBoxDeadline);
             groupBoxTaskInfo.Controls.Add(textBoxName);
@@ -121,15 +125,33 @@
             groupBoxTaskInfo.Controls.Add(textBoxNotes);
             groupBoxTaskInfo.Location = new Point(400, 12);
             groupBoxTaskInfo.Name = "groupBoxTaskInfo";
-            groupBoxTaskInfo.Size = new Size(388, 258);
+            groupBoxTaskInfo.Size = new Size(388, 291);
             groupBoxTaskInfo.TabIndex = 11;
             groupBoxTaskInfo.TabStop = false;
             groupBoxTaskInfo.Text = "Task Info";
             // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(48, 74);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(15, 14);
+            checkBox1.TabIndex = 19;
+            checkBox1.UseVisualStyleBackColor = true;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(7, 73);
+            label3.Name = "label3";
+            label3.Size = new Size(35, 15);
+            label3.TabIndex = 18;
+            label3.Text = "Done";
+            // 
             // labelDeadline
             // 
             labelDeadline.AutoSize = true;
-            labelDeadline.Location = new Point(7, 72);
+            labelDeadline.Location = new Point(8, 103);
             labelDeadline.Name = "labelDeadline";
             labelDeadline.Size = new Size(33, 15);
             labelDeadline.TabIndex = 17;
@@ -137,7 +159,7 @@
             // 
             // textBoxDeadline
             // 
-            textBoxDeadline.Location = new Point(6, 90);
+            textBoxDeadline.Location = new Point(7, 121);
             textBoxDeadline.Name = "textBoxDeadline";
             textBoxDeadline.Size = new Size(376, 23);
             textBoxDeadline.TabIndex = 16;
@@ -161,7 +183,7 @@
             // labelNotes
             // 
             labelNotes.AutoSize = true;
-            labelNotes.Location = new Point(6, 130);
+            labelNotes.Location = new Point(7, 161);
             labelNotes.Name = "labelNotes";
             labelNotes.Size = new Size(38, 15);
             labelNotes.TabIndex = 14;
@@ -169,7 +191,7 @@
             // 
             // textBoxNotes
             // 
-            textBoxNotes.Location = new Point(6, 148);
+            textBoxNotes.Location = new Point(7, 179);
             textBoxNotes.Multiline = true;
             textBoxNotes.Name = "textBoxNotes";
             textBoxNotes.ScrollBars = ScrollBars.Vertical;
@@ -178,25 +200,27 @@
             // 
             // BTNMarkDO
             // 
-            BTNMarkDO.Location = new Point(509, 322);
+            BTNMarkDO.Location = new Point(538, 333);
             BTNMarkDO.Name = "BTNMarkDO";
             BTNMarkDO.Size = new Size(103, 23);
             BTNMarkDO.TabIndex = 3;
             BTNMarkDO.Text = "Mark As Done";
             BTNMarkDO.UseVisualStyleBackColor = true;
+            BTNMarkDO.Click += BTNMarkDO_Click;
             // 
             // BTNMarkUNDO
             // 
-            BTNMarkUNDO.Location = new Point(509, 351);
+            BTNMarkUNDO.Location = new Point(538, 362);
             BTNMarkUNDO.Name = "BTNMarkUNDO";
             BTNMarkUNDO.Size = new Size(103, 23);
             BTNMarkUNDO.TabIndex = 4;
             BTNMarkUNDO.Text = "Mark As Undone";
             BTNMarkUNDO.UseVisualStyleBackColor = true;
+            BTNMarkUNDO.Click += BTNMarkUNDO_Click;
             // 
             // BTNModTask
             // 
-            BTNModTask.Location = new Point(400, 380);
+            BTNModTask.Location = new Point(429, 391);
             BTNModTask.Name = "BTNModTask";
             BTNModTask.Size = new Size(103, 23);
             BTNModTask.TabIndex = 2;
@@ -206,7 +230,7 @@
             // 
             // BTNDelUser
             // 
-            BTNDelUser.Location = new Point(509, 380);
+            BTNDelUser.Location = new Point(538, 391);
             BTNDelUser.Name = "BTNDelUser";
             BTNDelUser.Size = new Size(103, 23);
             BTNDelUser.TabIndex = 12;
@@ -216,11 +240,11 @@
             // 
             // BTNCloseApp
             // 
-            BTNCloseApp.Location = new Point(618, 380);
+            BTNCloseApp.Location = new Point(647, 391);
             BTNCloseApp.Name = "BTNCloseApp";
             BTNCloseApp.Size = new Size(103, 23);
             BTNCloseApp.TabIndex = 8;
-            BTNCloseApp.Text = "Close App";
+            BTNCloseApp.Text = "Save and Quit";
             BTNCloseApp.UseVisualStyleBackColor = true;
             BTNCloseApp.Click += CloseApp_Click;
             // 
@@ -294,5 +318,7 @@
         private Button BTNCloseApp;
         private Label label1;
         private Label label2;
+        private CheckBox checkBox1;
+        private Label label3;
     }
 }

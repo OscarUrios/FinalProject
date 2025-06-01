@@ -21,12 +21,29 @@ namespace FinalProject
         private void BTNSave_Click(object sender, EventArgs e)
         {
             string name = textBox1.Text;
+            bool found = false;
             if (name != "")
             {
-                SharedInfoAndFunctions.Users.NewGroup(new Group(name));
-                Hide();
-                Home home = new Home();
-                home.ShowDialog();
+                for(int i = 0; i < SharedInfoAndFunctions.Users.Groups.Count; i++)
+                {
+                    if (SharedInfoAndFunctions.Users.Groups[i].Name == name)
+                    {
+                        MessageBox.Show("This group already exists.");
+                        i = SharedInfoAndFunctions.Users.Groups.Count;
+                        found = true;
+                    }
+                    else
+                    {
+                        found = false;
+                    }
+                }
+                if (!found)
+                {
+                    SharedInfoAndFunctions.Users.NewGroup(new Group(name));
+                    Hide();
+                    Home home = new Home();
+                    home.ShowDialog();
+                }
             }
             else
             {

@@ -22,11 +22,6 @@ abstract class Task
         set { notes = value; }
     }
 
-    public override string ToString()
-    {
-        return "Name: " + name + "\nDescription: " + notes;
-    }
-
     public virtual string ToFile()
     {
         return $"{name}^{notes}";

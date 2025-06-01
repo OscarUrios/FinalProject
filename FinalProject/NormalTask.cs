@@ -27,7 +27,7 @@ namespace FinalProject
         }
         public override string ToFile()
         {
-            return $"{base.ToFile()}^{taskDate}^{taskCompleted}";
+            return $"{base.ToFile()}^{taskDate.ToString("M/d/yyyy H:m")}^{taskCompleted}";
         }
     }
 }

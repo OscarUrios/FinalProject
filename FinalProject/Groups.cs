@@ -30,11 +30,11 @@ class Group
     public void SaveToFile()
     {
         string filePath = $"{SharedInfoAndFunctions.Users.Username}.txt";
-        using (StreamWriter writer = new StreamWriter(filePath, false))
+        using (StreamWriter writer = new StreamWriter(filePath, true))
         {
             foreach (Task task in tasks)
             {
-                writer.WriteLine($"{name}·{task.ToFile()}");
+                writer.WriteLine($"{name}^{task.ToFile()}");
             }
         }
     }

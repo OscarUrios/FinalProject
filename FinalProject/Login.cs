@@ -30,17 +30,6 @@ namespace FinalProject
                         }
                     } while (line != null);
                 }
-                using (StreamReader filex = new StreamReader(file2))
-                {
-                    do
-                    {
-                        line = filex.ReadLine();
-                        if (line != null)
-                        {
-                            string[] parts = line.Split(',');
-                        }
-                    } while (line != null);
-                }
                 Hide();
                 Home home = new Home();
                 home.ShowDialog();
@@ -50,6 +39,7 @@ namespace FinalProject
                 DialogResult result = MessageBox.Show("Cant find a user with that name. \n Do you want to create a new user?", "Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
+                    // Create a new user and associated files
                     User user = new User(username);
                     StreamWriter GSF = File.CreateText(file1);
                     GSF.Close();

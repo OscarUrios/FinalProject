@@ -20,7 +20,7 @@ namespace FinalProject
         }
         public override string ToFile()
         {
-            return $"{base.ToFile()}^{hourRepeat}";
+            return $"{base.ToFile()}^{hourRepeat.ToString("M/d/yyyy H:m")}";
         }
     }
 }

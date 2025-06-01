@@ -45,7 +45,7 @@ class User
         bool groupFound = false;
         foreach (Group group in groups)
         {
-            if (group.Name == groupname)
+            if (group.Name.Equals(groupname))
             {
                 group.NewTask(task);
                 groupFound = true;
@@ -57,7 +57,13 @@ class User
         }
         else
         {
-            MessageBox.Show($"Group not found.");
+            DialogResult option = MessageBox.Show($"Group not found. \n " +
+                $"Would you like to create a new one?", "Confirmation", MessageBoxButtons.YesNo);
+            if (option == DialogResult.Yes)
+            {
+                NewGroup(new Group(groupname));
+                AddTaskToGroup(groupname, task);
+            }
         }
     }
 
@@ -65,11 +71,11 @@ class User
     {
         foreach (Group group in groups)
         {
-            if (group.Name == groupName)
+            if (group.Name.Equals(groupName))
             {
                 foreach(Task task1 in group.Tasks)
                 {
-                    if (task1.Name == task.Name)
+                    if (task1.Name.Equals(task.Name))
                     {
                         group.Tasks.Remove(task1);
                         MessageBox.Show($"Task {task.Name} deleted from group {groupName}.");
@@ -83,12 +89,13 @@ class User
         }
     }
 
-    public List<Task> ShowTasks(string groupName)
+    //busca el grupo y devuelve la lista de sus tareas
+    public List<Task> ReturnTasks(string groupName)
     {
         List<Task> tasks = new List<Task>();
         foreach (Group group in groups)
         {
-            if (group.Name == groupName)
+            if (group.Name.Equals(groupName))
             {
                 tasks = group.Tasks;
             }
@@ -96,6 +103,12 @@ class User
         return tasks;
     }
 
+    public void AddGroup(Group group)
+    {
+        groups.Add(group);
+    }
+
+    //guarda los grupos en un archivo
     public void SaveToFile()
     {
         string filePath = $"{SharedInfoAndFunctions.Users.Username}-group.txt";
