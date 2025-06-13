@@ -44,16 +44,22 @@ namespace FinalProject
 
                         string taskName = parts[1];
                         string taskNotes = parts[2];
-                        if (parts.Length == 5)
+                        if (parts.Length == 6)
                         {
-                            DateTime taskDate = DateTime.ParseExact($"{parts[3]}", "M/d/yyyy H:m", System.Globalization.CultureInfo.InvariantCulture);
+                            DateTime taskDate = DateTime.ParseExact($"{parts[3]}", "M/d/yyyy H:m",
+                                System.Globalization.CultureInfo.InvariantCulture);
                             bool taskCompleted = bool.Parse(parts[4]);
-                            NormalTask task = new NormalTask(taskName, taskNotes, taskDate, taskCompleted);
+                            DateTime completionDate = DateTime.ParseExact($"{parts[5]}", "M/d/yyyy H:m",
+                                System.Globalization.CultureInfo.InvariantCulture);
+                            TaskStatus status = new TaskStatus {IsCompleted = taskCompleted,
+                                CompletionDate = completionDate };
+                            NormalTask task = new NormalTask(taskName, taskNotes, taskDate, status);
                             SharedInfoAndFunctions.Users.AddTaskFromFile(groupName, task);
                         }
                         else
                         {
-                            DateTime HourRepeat = DateTime.ParseExact($"{parts[3]}", "H:m", System.Globalization.CultureInfo.InvariantCulture);
+                            DateTime HourRepeat = DateTime.ParseExact($"{parts[3]}", "H:m",
+                                System.Globalization.CultureInfo.InvariantCulture);
                             RepeatTask task = new RepeatTask(taskName, taskNotes, HourRepeat);
                             SharedInfoAndFunctions.Users.AddTaskFromFile(groupName, task);
                         }
@@ -64,7 +70,8 @@ namespace FinalProject
 
         void CloseApp()
         {
-            using (StreamWriter writer = new StreamWriter($"{SharedInfoAndFunctions.Users.Username}.txt", false)) { }
+            using (StreamWriter writer = new StreamWriter($"{SharedInfoAndFunctions.Users.Username}.txt",
+                false)) { }
             foreach (Group group in SharedInfoAndFunctions.Users.Groups)
             {
                 group.SaveToFile();
@@ -224,7 +231,7 @@ namespace FinalProject
                     if (task is NormalTask)
                     {
                         textBoxDeadline.Text = Convert.ToString(((NormalTask)task).TaskDate);
-                        if (((NormalTask)task).TaskCompleted)
+                        if (((NormalTask)task).Status.IsCompleted)
                         {
                             checkBox1.Checked = true;
                         }
@@ -279,9 +286,12 @@ namespace FinalProject
                             {
                                 if (group.Tasks[i] is NormalTask normalTask)
                                 {
-                                    if (normalTask.TaskCompleted == false)
+                                    if (normalTask.Status.IsCompleted == false)
                                     {
-                                        normalTask.TaskCompleted = true;
+                                        var status = normalTask.Status;
+                                        status.IsCompleted = true;
+                                        status.CompletionDate = normalTask.TaskDate;
+                                        normalTask.Status = status;
                                         checkBox1.Checked = true;
                                     }
                                     else
@@ -314,10 +324,13 @@ namespace FinalProject
                             {
                                 if (group.Tasks[i] is NormalTask normalTask)
                                 {
-                                    if (normalTask.TaskCompleted == true)
+                                    if (normalTask.Status.IsCompleted == true)
                                     {
-                                        normalTask.TaskCompleted = false;
-                                        checkBox1.Checked = true;
+                                        var status = normalTask.Status;
+                                        status.IsCompleted = false;
+                                        status.CompletionDate = DateTime.Now;
+                                        normalTask.Status = status;
+                                        checkBox1.Checked = false;
                                     }
                                     else
                                     {

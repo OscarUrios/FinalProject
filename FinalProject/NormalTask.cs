@@ -9,25 +9,26 @@ namespace FinalProject
     class NormalTask : Task
     {
         private DateTime taskDate;
-        private bool taskCompleted;
-        public NormalTask(string name, string notes, DateTime taskDate, bool taskCompleted) : base(name, notes)
+        private TaskStatus status;
+
+        public NormalTask(string name, string notes, DateTime taskDate, TaskStatus status) : base(name, notes)
         {
             this.taskDate = taskDate;
-            this.taskCompleted = taskCompleted;
+            this.status = status;
         }
         public DateTime TaskDate
         {
             get { return taskDate; }
             set { taskDate = value; }
         }
-        public bool TaskCompleted
+        public TaskStatus Status
         {
-            get { return taskCompleted; }
-            set { taskCompleted = value; }
+            get { return status; }
+            set { status = value; }
         }
         public override string ToFile()
         {
-            return $"{base.ToFile()}^{taskDate.ToString("M/d/yyyy H:m")}^{taskCompleted}";
+            return $"{base.ToFile()}^{taskDate.ToString("M/d/yyyy H:m")}^{status.IsCompleted}^{status.CompletionDate}";
         }
     }
 }

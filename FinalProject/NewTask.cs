@@ -45,7 +45,12 @@ namespace FinalProject
                 {
                     date = dateTimePickerNewTask.Value;
                 }
-                task = new NormalTask(textBoxName.Text, textBoxNotes.Text, date, false);
+                var status = new TaskStatus
+                {
+                    IsCompleted = false,
+                    CompletionDate = date
+                };
+                task = new NormalTask(textBoxName.Text, textBoxNotes.Text, date ,status);
             }
             else
             {
