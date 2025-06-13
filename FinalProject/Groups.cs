@@ -1,5 +1,7 @@
 ﻿using System;
 
+// The group class that represents a collection of tasks
+
 class Group
 {
     private string name;

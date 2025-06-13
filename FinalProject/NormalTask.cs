@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+// Task class that represents a normal task, inheriting from Task
+
 namespace FinalProject
 {
     class NormalTask : Task

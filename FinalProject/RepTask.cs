@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+//Class that represents a task that repeats everyday, inheriting from Task
+
 namespace FinalProject
 {
     class RepeatTask : Task

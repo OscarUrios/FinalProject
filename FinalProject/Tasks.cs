@@ -1,4 +1,6 @@
 ﻿
+// The base for all the tasks in the project.
+
 abstract class Task
 {
     private string name;

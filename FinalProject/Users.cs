@@ -3,6 +3,8 @@ using System.Security.Cryptography.X509Certificates;
 using System.Xml.Linq;
 using FinalProject;
 
+
+// The user class represents a user in the application, managing their groups and tasks.
 class User
 {
     private string username;
