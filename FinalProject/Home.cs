@@ -267,56 +267,72 @@ namespace FinalProject
 
         private void BTNMarkDO_Click(object sender, EventArgs e)
         {
-            foreach (Group group in SharedInfoAndFunctions.Users.Groups)
+            if (listBoxGroups.SelectedItem != null)
             {
-                if (group.Name.Equals(listBoxGroups.SelectedItem.ToString()))
+                foreach (Group group in SharedInfoAndFunctions.Users.Groups)
                 {
-                    for (int i = 0; i < group.Tasks.Count; i++)
+                    if (group.Name.Equals(listBoxGroups.SelectedItem.ToString()))
                     {
-                        if (group.Tasks[i].Name.Equals(listBoxTasks.SelectedItem.ToString()))
+                        for (int i = 0; i < group.Tasks.Count; i++)
                         {
-                            if (group.Tasks[i] is NormalTask normalTask)
+                            if (group.Tasks[i].Name.Equals(listBoxTasks.SelectedItem.ToString()))
                             {
-                                normalTask.TaskCompleted = true;
-                                textBoxNotes.Text = "";
-                                textBoxName.Text = "";
-                                textBoxDeadline.Text = "";
-                            }
-                            else
-                            {
-                                MessageBox.Show("Task already done.");
+                                if (group.Tasks[i] is NormalTask normalTask)
+                                {
+                                    if (normalTask.TaskCompleted == false)
+                                    {
+                                        normalTask.TaskCompleted = true;
+                                        checkBox1.Checked = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Task already done.");
+                                    }
+                                }
                             }
                         }
                     }
                 }
+            }
+            else
+            {
+                MessageBox.Show("Please select a group and a task to mark as done.");
             }
         }
 
         private void BTNMarkUNDO_Click(object sender, EventArgs e)
         {
-            foreach (Group group in SharedInfoAndFunctions.Users.Groups)
+            if (listBoxGroups.SelectedItem != null)
             {
-                if (group.Name.Equals(listBoxGroups.SelectedItem.ToString()))
+                foreach (Group group in SharedInfoAndFunctions.Users.Groups)
                 {
-                    for (int i = 0; i < group.Tasks.Count; i++)
+                    if (group.Name.Equals(listBoxGroups.SelectedItem.ToString()))
                     {
-                        if (group.Tasks[i].Name.Equals(listBoxTasks.SelectedItem.ToString()))
+                        for (int i = 0; i < group.Tasks.Count; i++)
                         {
-                            if (group.Tasks[i] is NormalTask normalTask)
+                            if (group.Tasks[i].Name.Equals(listBoxTasks.SelectedItem.ToString()))
                             {
-                                normalTask.TaskCompleted = false;
-                                textBoxNotes.Text = "";
-                                textBoxName.Text = "";
-                                textBoxDeadline.Text = "";
-                            }
-                            else
-                            {
-                                MessageBox.Show("Task already not done.");
+                                if (group.Tasks[i] is NormalTask normalTask)
+                                {
+                                    if (normalTask.TaskCompleted == true)
+                                    {
+                                        normalTask.TaskCompleted = false;
+                                        checkBox1.Checked = true;
+                                    }
+                                    else
+                                    {
+                                        MessageBox.Show("Task already not done.");
+                                    }
+                                }
                             }
                         }
                     }
                 }
             }
-        }
+            else
+            {
+                MessageBox.Show("Please select a group and a task to mark as undone.");
+            }
+}
     }
 }

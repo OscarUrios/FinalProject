@@ -66,14 +66,29 @@ namespace FinalProject
             task.Notes = textBoxNotes.Text;
             if (!checkBox1.Checked)
             {
+                DateTime date;
+                if (domainUpDown1.Text != null || domainUpDown1.Text != "" ||
+                    domainUpDown2.Text != null || domainUpDown2.Text != "")
+                {
+                    date = DateTime.ParseExact($"{dateTimePickerNewTask.Value.Day} " +
+                    $"{dateTimePickerNewTask.Value.Month} {dateTimePickerNewTask.Value.Year} " +
+                    $"{domainUpDown1.Text}:{domainUpDown2.Text}", "d M yyyy H:m",
+                    System.Globalization.CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    date = dateTimePickerNewTask.Value;
+                }
+
                 if (task is NormalTask normalTask)
                 {
-                    normalTask.TaskDate = dateTimePickerNewTask.Value;
+                    normalTask.TaskDate = date;
                 }
             }
             else
             {
-                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}", "H:m", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}",
+                    "H:m", System.Globalization.CultureInfo.InvariantCulture);
                 if (task is RepeatTask repeatTask)
                 {
                     repeatTask.HourRepeat = hour;

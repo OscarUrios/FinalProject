@@ -32,11 +32,25 @@ namespace FinalProject
             Task task = null;
             if (!checkBox1.Checked)
             {
-                task = new NormalTask(textBoxName.Text, textBoxNotes.Text, dateTimePickerNewTask.Value, false);
+                DateTime date;
+                if (domainUpDown1.Text != null || domainUpDown1.Text != "" ||
+                    domainUpDown2.Text != null || domainUpDown2.Text != "")
+                {
+                    date = DateTime.ParseExact($"{dateTimePickerNewTask.Value.Day} " +
+                    $"{dateTimePickerNewTask.Value.Month} {dateTimePickerNewTask.Value.Year} " +
+                    $"{domainUpDown1.Text}:{domainUpDown2.Text}", "d M yyyy H:m",
+                    System.Globalization.CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    date = dateTimePickerNewTask.Value;
+                }
+                task = new NormalTask(textBoxName.Text, textBoxNotes.Text, date, false);
             }
             else
             {
-                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}", "H:m", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime hour = DateTime.ParseExact($"{domainUpDown1.Text}:{domainUpDown2.Text}", 
+                    "H:m", System.Globalization.CultureInfo.InvariantCulture);
                 task = new RepeatTask(textBoxName.Text, textBoxNotes.Text, hour);
             }
             SharedInfoAndFunctions.Users.AddTaskToGroup(comboBoxGroup.Text, task);
